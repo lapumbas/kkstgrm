@@ -31,27 +31,32 @@ for (let i = 0; i < photosAmount; i++) {
   photos[i].comments = randomComments(comments);
 }
 
-function createFromTemplate() {
-  let template = document.querySelector(`#picture-template`).content.querySelector(`.picture`);
-  let fragment = document.createDocumentFragment();
-  let pictures = document.querySelector(`.pictures`);
-  for (let i = 0; i < photos.length; i++) {
-    let picture = template.cloneNode(true);
-    picture.querySelector(`img`).src = photos[i].url;
-    picture.querySelector(`.picture-likes`).innerText = String(photos[i].likes);
-    picture.querySelector(`.picture-comments`).innerText = String(photos[i].comments.length);
-    fragment.appendChild(picture);
-  }
-  pictures.appendChild(fragment);
-};
+let template = document.querySelector(`#picture-template`).content;
+let pictures = document.querySelector(`.pictures`);
+let fragment = document.createDocumentFragment();
+let galleryOverlay = document.querySelector(`.gallery-overlay`);
 
-function showGalleryOverlay() {
-  let galleryOverlay = document.querySelector(`.gallery-overlay`);
+const showGalleryOverlay = (photo) => {
+  galleryOverlay.querySelector(`.gallery-overlay-image`).src = photo.url;
+  galleryOverlay.querySelector(`.likes-count`).innerText = String(photo.likes);
+  galleryOverlay.querySelector(`.comments-count`).innerText = String(photo.comments.length);
   galleryOverlay.classList.remove(`hidden`);
-  galleryOverlay.querySelector(`.gallery-overlay-image`).src = photos[0].url;
-  galleryOverlay.querySelector(`.likes-count`).innerText = String(photos[0].likes);
-  galleryOverlay.querySelector(`.comments-count`).innerText = String(photos[0].comments.length);
 };
 
-createFromTemplate();
-showGalleryOverlay();
+
+let image = [];
+
+for (let i = 0; i < photos.length; i++) {
+  image[i] = template.cloneNode(true);
+  image[i].querySelector(`img`).src = photos[i].url;
+  image[i].querySelector(`.picture-likes`).innerText = String(photos[i].likes);
+  image[i].querySelector(`.picture-comments`).innerText = String(photos[i].comments.length);
+  fragment.appendChild(image[i]);
+};
+pictures.appendChild(fragment);
+
+let rrrr = pictures.querySelectorAll('.picture');
+console.log(rrrr)
+rrrr.forEach(item=>{
+  item.addEventListener('')
+})
