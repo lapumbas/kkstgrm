@@ -57,16 +57,12 @@
       if (evt.keyCode === 13) wd.uploadSubmitButton.click();
     });
 
-    wd.uploadResizeControls.addEventListener('click', evt => {
-      let value = parseInt(wd.uploadResizeControlsValue.value);
-      let step = 25;
-      if (evt.target.classList.contains('upload-resize-controls-button-inc') && value < 100) {
-        wd.uploadResizeControlsValue.value = `${value + step}%`;
-      } else if (evt.target.classList.contains('upload-resize-controls-button-dec') && value > 0) {
-        wd.uploadResizeControlsValue.value = `${value - step}%`;
-      }
-      wd.effectImagePreview.style.transform = `scale(${parseInt(wd.uploadResizeControlsValue.value) / 100})`;
-    });
+    function scaleMethod(targetElement, scale) {
+      targetElement.style.transform = `scale(${parseInt(scale) / 100})`;
+    }
+
+    window.initializeScale(wd.uploadResizeControls, wd.effectImagePreview, 10, scaleMethod);
+
 
     wd.uploadEffectControls.addEventListener('click', evt => {
       if (evt.target.value) {
@@ -76,27 +72,27 @@
         }
 
         switch (evt.target.value) {
-        case 'none':
-          wd.currentFilterName = 'none';
-          break;
-        case 'chrome':
-          wd.currentFilterName = 'grayscale';
-          break;
-        case 'sepia':
-          wd.currentFilterName = 'sepia';
-          break;
-        case 'marvin':
-          wd.currentFilterName = 'invert';
-          break;
-        case 'phobos':
-          wd.currentFilterName = 'blur';
-          break;
-        case 'heat':
-          wd.currentFilterName = 'brightness';
-          break;
-        default:
-          wd.currentFilterName = 'brightness';
-          break;
+          case 'none':
+            wd.currentFilterName = 'none';
+            break;
+          case 'chrome':
+            wd.currentFilterName = 'grayscale';
+            break;
+          case 'sepia':
+            wd.currentFilterName = 'sepia';
+            break;
+          case 'marvin':
+            wd.currentFilterName = 'invert';
+            break;
+          case 'phobos':
+            wd.currentFilterName = 'blur';
+            break;
+          case 'heat':
+            wd.currentFilterName = 'brightness';
+            break;
+          default:
+            wd.currentFilterName = 'brightness';
+            break;
         }
         console.log(wd.currentFilterName);
         wd.effectImagePreview.classList.add(`effect-${evt.target.value}`);
@@ -127,6 +123,11 @@
   }
 
   function slider() {
+
+
+    wd.levelPin.addEventListener.onmousedown = () => {
+      return false;
+    };
 
     wd.levelPin.addEventListener('mousedown', evt => {
       let pin = wd.levelPin;
