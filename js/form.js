@@ -49,8 +49,22 @@
         wd.uploadHashtags.style.border = '3px solid red';
       } else {
         wd.uploadHashtags.style.border = '3px solid green';
-        wd.uploadForm.submit();
       }
+
+      function onLoad(response) {
+        console.log('uploaded ' + response);
+        wd.uploadForm.reset();
+        wd.uploadOverlay.classList.add('hidden');
+      }
+
+      function onError(error) {
+        console.error('**************' + error);
+        window.showErrorPopup(error);
+      }
+
+      window.uploadData(new FormData(wd.uploadForm), onLoad, onError);
+
+
     });
 
     wd.uploadSubmitButton.addEventListener('keydown', (evt) => {
@@ -72,27 +86,27 @@
         }
 
         switch (evt.target.value) {
-          case 'none':
-            wd.currentFilterName = 'none';
-            break;
-          case 'chrome':
-            wd.currentFilterName = 'grayscale';
-            break;
-          case 'sepia':
-            wd.currentFilterName = 'sepia';
-            break;
-          case 'marvin':
-            wd.currentFilterName = 'invert';
-            break;
-          case 'phobos':
-            wd.currentFilterName = 'blur';
-            break;
-          case 'heat':
-            wd.currentFilterName = 'brightness';
-            break;
-          default:
-            wd.currentFilterName = 'brightness';
-            break;
+        case 'none':
+          wd.currentFilterName = 'none';
+          break;
+        case 'chrome':
+          wd.currentFilterName = 'grayscale';
+          break;
+        case 'sepia':
+          wd.currentFilterName = 'sepia';
+          break;
+        case 'marvin':
+          wd.currentFilterName = 'invert';
+          break;
+        case 'phobos':
+          wd.currentFilterName = 'blur';
+          break;
+        case 'heat':
+          wd.currentFilterName = 'brightness';
+          break;
+        default:
+          wd.currentFilterName = 'brightness';
+          break;
         }
         console.log(wd.currentFilterName);
         wd.effectImagePreview.classList.add(`effect-${evt.target.value}`);
@@ -163,6 +177,7 @@
 
     });
   }
+
 
 
 })();
