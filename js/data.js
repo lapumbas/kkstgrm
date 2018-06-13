@@ -22,13 +22,14 @@
     uploadResizeControlsValue: document.querySelector('.upload-resize-controls-value'),
     uploadHashtags: document.querySelector('.upload-form-hashtags'),
     template: document.querySelector('#picture-template').content,
-    pictures: document.querySelector('.pictures'),
-    fragment: document.createDocumentFragment(),
+    pictures: document.querySelector('.pictures'),    
     galleryOverlay: document.querySelector('.gallery-overlay'),
     levelPin: document.querySelector('.upload-effect-level-pin'),
     levelLine: document.querySelector('.upload-effect-level-line'),
     levelValue: document.querySelector('.upload-effect-level-val'),
     levelLevel: document.querySelector('.upload-effect-level'),
+    
+    filters: document.querySelector('.filters'),
 
     filterLevel: 0.2,
     currentFilterName: 'none',

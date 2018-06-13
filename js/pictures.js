@@ -13,37 +13,13 @@ for (let i = 0; i < photosAmount; i++) {
 
 function onLoad(response) {
   photos = response;
+  wd.filters.classList.remove('hidden');
 }
 
 function onError(error) {
   console.error(error);
 }
 
-window.downloadData (onLoad, onError);
-
-for (let i = 0; i < photos.length; i++) {
-  let image = wd.template.cloneNode(true);
-  image.userSelect = false;
-  image.querySelector('img').src = photos[i].url;
-  image.querySelector('.picture-likes').innerText = String(photos[i].likes);
-  image.querySelector('.picture-comments').innerText = String(photos[i].comments.length);
-
-  wd.fragment.appendChild(image);
-}
-wd.pictures.appendChild(wd.fragment);
-
-let picture = wd.pictures.querySelectorAll('.picture');
-
-picture.forEach((item, index) => {
-  item.style.cursor = 'pointer';
-  item.addEventListener('click', (evt) => {
-    evt.preventDefault();
-    window.preview.showGalleryOverlayHandler(photos[index]);
-  });
-});
-
-picture.forEach((item, index) => {
-  item.addEventListener('keydown', (evt) => {
-    if (evt.keyCode === 13) window.preview.showGalleryOverlayHandler(photos[index]);
-  });
-});
+window.downloadData(onLoad, onError);
+window.drawGallery(photos);
+window.filtersChange(photos);
